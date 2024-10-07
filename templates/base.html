@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Navbar</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <title>{% block title %} {% endblock title %}</title>
+  </head>
+  
+  <body>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="{% static 'images/logo.png' %}" alt="Logo" /> مجتمع آموزش عالی تربت
+          جام
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#">خانه</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'events:events_list' %}">رخدادها</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">اساتید و کارمندان</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">انجمن ها</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">شهدا</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">درباره ما</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    {% block content %} {% endblock content %}
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <!-- Site information -->
+          <div class="col-lg-6 col-md-6">
+            <h6 class="footer-title">
+              سامانه اطلاع رسانی مجتمع آموزش عالی تربت جام
+            </h6>
+            <ul class="footer-nav list-unstyled">
+              <li><a href="#">خانه</a></li>
+              <li><a href="#">اساتید و کارمندان</a></li>
+              <li><a href="#">رخداد ها</a></li>
+              <li><a href="#">انجمن ها</a></li>
+              <li><a href="#">شهدا</a></li>
+              <li><a href="#">درباره ما</a></li>
+            </ul>
+          </div>
+          <!-- Contact information -->
+          <div class="col-lg-6 col-md-6">
+            <p class="footer-contact">
+              <i class="bi bi-geo-alt-fill"></i> خراسان رضوی - شهرستان تربت جام،
+              بلوار خلیج فارس، بین خلیج فارس 11 و 13، مجتمع آموزش عالی تربت جام
+            </p>
+            <p class="footer-contact">
+              <i class="bi bi-telephone-fill"></i> 05152547041-44
+            </p>
+            <p class="footer-contact">
+              <i class="bi bi-printer-fill"></i> نمابر: 05152547045
+            </p>
+            <p class="footer-contact">
+              <i class="bi bi-box-fill"></i> کد پستی: 9571966590
+            </p>
+          </div>
+          <!-- Social media links -->
+          <div class="col-md-12 text-center">
+            <div class="social-icons">
+              <a href="#"><i class="bi bi-instagram"></i></a>
+              <a href="#"><i class="bi bi-github"></i></a>
+              <a href="#"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-line"></div>
+        <!-- Copyright -->
+        <div class="row">
+          <div class="col-12 text-center">
+            <p class="copyright">
+              تمامی حقوق و محتوا برای MD5502 محفوظ می باشد.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Bootstrap icons and scripts -->
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
