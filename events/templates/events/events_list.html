@@ -11,7 +11,6 @@
         <!-- Navigation -->
         <div class="navbar navbar-light bg-light">
             <h2 class="mx-right">رخ‌دادها</h2>
-            
             <a href="#" class="btn btn-outline-danger"><i class="bi bi-arrow-left"></i></a>
         </div>
     
@@ -19,8 +18,9 @@
         <div class="container mt-5 my-5">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-8">
-                    <form class="d-flex">
-                        <input class="form-control me-2 search-bar" type="search" placeholder="جست و جو" aria-label="Search">
+                    <form method="get" action="{% url 'events:events_list' %}" class="d-flex">
+                        <input class="form-control me-2 search-bar" type="search" name="search" placeholder="جست و جو" value="{{ request.GET.search }}" aria-label="Search">
+                        <input type="date" id="date" name="date" class="form-control me-2" value="{{ request.GET.date }}">
                         <button class="btn btn-outline-danger" type="submit">
                             <i class="bi bi-search"></i>
                         </button>
@@ -28,7 +28,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Events Rows -->
         <div class="row">
             <!-- First Column: Events with odd index -->
@@ -59,7 +58,7 @@
                             <h4>{{ event.title }}</h4>
                             <span>{{ event.date }}</span>
                         </li>
-                        </a>
+                    </a>
                     {% endif %}
                     {% endfor %}
                 </ul>
@@ -67,3 +66,4 @@
         </div>
     </div>
 {% endblock content %}
+
