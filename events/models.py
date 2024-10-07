@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 class Event(models.Model):
     title = models.CharField(_("title"), max_length=100)
     description = models.TextField(_("description"))
-    slug = models.SlugField(_("slug"))
+    slug = models.SlugField(_("slug"), unique=True, allow_unicode=True, null=True, blank=True)
     schedule_date = models.DateTimeField(_("schedule date"))
 
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
