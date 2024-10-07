@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    عنوان رخداد
+{% endblock title %}
+
+{% block content %}
+    <div class="event-detail-container container mt-5">
+        <!-- Navigation -->
+        <div class="event-detail-navbar navbar navbar-light bg-light mb-4">
+            <a href="{% url 'events:events_list' %}">
+                <i class="bi bi-arrow-left "></i>
+            </a>
+        </div>
+
+        <!-- Event Details -->
+        <div class="event-detail-details row mb-4">
+            <div class="col-md-8">
+                <img src="{{ main_image.url }}" alt="{{ event.title }}" class="event-detail-main-image img-fluid">
+            </div>
+            <div class="col-md-4">
+                <h2 class="event-detail-title">{{ event.title }}</h2>
+                <span class="event-detail-date">{{ event.date }}</span>
+            </div>
+        </div>
+
+        <!-- Event Description -->
+        <div class="event-detail-description-container row">
+            <div class="col-12">
+                <p class="event-detail-description">
+                    {{ event.description }}
+                </p>
+            </div>
+        </div>
+
+        <!-- Additional Images -->
+        <div class="event-detail-additional-images row mt-5">
+            {% for image in extra_images %}
+            <div class="col-md-3 col-6 mb-4">
+                <img src="{{ image.url }}" alt="Additional Image" class="event-detail-extra-image img-fluid">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
