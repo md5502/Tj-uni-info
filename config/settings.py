@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # 3erd party PKGs
     "crispy_forms",
     "crispy_bootstrap5",
+    "mdeditor",
 ]
 
 MIDDLEWARE = [
@@ -110,9 +111,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "fa"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Asia/Tehran"
 
 USE_I18N = True
 
@@ -148,3 +149,44 @@ EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+
+
+# markdown
+
+
+# add frame settings for django3.0+ like this
+X_FRAME_OPTIONS = "SAMEORIGIN"
+
+MDEDITOR_CONFIGS = {
+    "default": {
+        "width": "100% ",  # Custom edit box width
+        "height": 700,  # Custom edit box height
+        "toolbar": ["undo", "redo", "|",
+                    "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
+                    "h1", "h2", "h3", "h5", "h6", "|",
+                    "list-ul", "list-ol", "hr", "|",
+                    "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime",
+                    "emoji", "html-entities", "pagebreak", "goto-line", "|",
+                    "help", "info",
+                    "||", "preview", "watch", "fullscreen"],  # custom edit box toolbar
+        # image upload format type
+        "upload_image_formats": ["jpg", "jpeg", "gif", "png", "bmp", "webp", "svg"],
+        "image_folder": "editor",  # image save the folder name
+        "theme": "default",  # edit box theme, dark / default
+        "preview_theme": "default",  # Preview area theme, dark / default
+        "editor_theme": "default",  # edit area theme, pastel-on-dark / default
+        "toolbar_autofixed": False,  # Whether the toolbar capitals
+        "search_replace": True,  # Whether to open the search for replacement
+        "emoji": True,  # whether to open the expression function
+        "tex": True,  # whether to open the tex chart function
+        "flow_chart": True,  # whether to open the flow chart function
+        "sequence": True,  # Whether to open the sequence diagram function
+        "watch": True,  # Live preview
+        "lineWrapping": True,  # lineWrapping
+        "lineNumbers": True,  # lineNumbers
+        "language": "en",  # zh / en / es
+    },
+}
+
+# enabling media uploads
