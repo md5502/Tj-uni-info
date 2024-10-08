@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            background-color: #f7f7f7;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+        }
+
+        .email-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            border: 1px solid #ddd;
+        }
+
+        .email-header {
+            background-color: #ff5f6d;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .email-body {
+            direction: rtl;
+            padding: 20px;
+        }
+
+        .email-footer {
+            background-color: #f2f2f2;
+            text-align: center;
+            padding: 10px;
+            color: #888;
+        }
+
+        .btn {
+            background-color: #ff5f6d;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <!-- Email Header -->
+        <div class="email-header">
+            <h1>ثبت‌نام شما موفقیت‌آمیز بود</h1>
+        </div>
+
+        <!-- Email Body -->
+        <div class="email-body">
+            <p>سلام {{ first_name }} عزیز،</p>
+            <p>ثبت‌نام شما برای رخداد <strong>{{ event_title }}</strong> با موفقیت انجام شد.</p>
+            <p>رخداد در تاریخ {{ event_date }} در مکان <strong>{{ event_location }}</strong> برگزار می‌شود.</p>
+            <p>لطفا جزئیات را مرور کنید و منتظر ایمیل‌های بعدی ما باشید.</p>
+            <a href="{{ event_url }}" class="btn">مشاهده جزئیات رخداد</a>
+        </div>
+
+        <!-- Email Footer -->
+        <div class="email-footer">
+            <p>با تشکر از شما برای ثبت‌نام،</p>
+            <p>تیم برگزاری رخداد</p>
+        </div>
+    </div>
+</body>
+
+</html>

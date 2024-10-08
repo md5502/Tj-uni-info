@@ -4,16 +4,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Navbar</title>
+    <title>{% block title %} {% endblock title %}</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    <title>{% block title %} {% endblock title %}</title>
   </head>
   
   <body>
+
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">
@@ -59,7 +59,28 @@
       </div>
     </nav>
 
-    {% block content %} {% endblock content %}
+      
+    <!-- Flash Messages Section -->
+    <div id="flash-messages" class="position-fixed top-0 end-0 p-3" style="z-index: 1050;">
+      {% if messages %}
+      <div style="position: fixed; top: 30px; right: 20px;" class="toast-container">
+          {% for message in messages %}
+          <div class="toast align-items-center {% if message.tag == 'error' %}text-bg-danger {% else %} text-bg-{{ message.tags }}{% endif %} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+              <div class="d-flex">
+                  <div class="toast-body">
+                      {{ message }}
+                  </div>
+                  <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+    {% block content %}
+    
+    
+    {% endblock content %}
 
     <!-- Footer -->
     <footer>
@@ -122,5 +143,11 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const toastElList = [].slice.call(document.querySelectorAll('.toast'))
+      const toastList = toastElList.map(function (toastEl) {
+          return new bootstrap.Toast(toastEl, { autohide: true, delay: 5000 }).show()
+      });
+  </script>
   </body>
 </html>

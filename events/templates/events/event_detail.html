@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    عنوان رخداد
+    {{ event.title }}
 {% endblock title %}
 
 {% block content %}
@@ -21,7 +21,11 @@
             </div>
             <div class="col-md-4">
                 <h2 class="event-detail-title">{{ event.title }}</h2>
-                <span class="event-detail-date">{{ event.date }}</span>
+                <span class="event-detail-date"><strong>تاریخ برگزاری:</strong> {{ event_date }}</span> <!-- تاریخ برگزاری -->
+                <p class="event-detail-location"><strong>مکان برگزاری:</strong> {{ event.location }}</p> <!-- مکان برگزاری -->
+                <a class="btn btn-success" href="{% url 'events:event_registration' event.slug %}">
+                    ثبت‌نام
+                </a>
             </div>
         </div>
 
@@ -29,7 +33,7 @@
         <div class="event-detail-description-container row">
             <div class="col-12">
                 <p class="event-detail-description">
-                    {{ event.description }}
+                    {{ event_description_html|safe }}
                 </p>
             </div>
         </div>

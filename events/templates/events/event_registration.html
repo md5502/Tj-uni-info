@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+ثبت‌نام
+{% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <!-- Event Information -->
+        <div class="col-md-6">
+            <h2 class="my-5">اطلاعات رخداد</h2>
+            <div class="card-body">
+                <h3 class="card-title my-3">{{ event_title }}</h3>
+                <p class="card-text"><strong>تاریخ رخداد:</strong> {{ event_date}}</p>
+                <p class="card-text"><strong>محل برگزاری:</strong> {{event_location}}</p>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="col-md-6">
+            <h2 class="my-5">ثبت‌نام در رخداد</h2>
+            <form method="POST" class="post-form">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-success">ثبت‌نام</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
