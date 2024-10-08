@@ -7,7 +7,6 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.dateparse import parse_date
-from django.utils.translation import gettext_lazy as _
 
 from .forms import EventUserRegistration
 from .models import Event, EventImage, EventUser
@@ -82,7 +81,7 @@ def event_registration(request, slug):
             email = form.cleaned_data["email"]
             already_user = EventUser.objects.filter(event=event, email=email)
             if already_user:
-                messages.success(request, _("you already registered in this event"))
+                messages.success(request, "شما قبلا در این رخداد ثبت‌نام کرده‌اید")
                 return redirect("events:event_detail", slug)
 
             event_user.event = event
@@ -97,7 +96,7 @@ def event_registration(request, slug):
                 event_url=request.build_absolute_uri(reverse("events:event_detail", kwargs={"slug": event.slug})),
             )
 
-            messages.success(request, _("you have been registered successfully"))
+            messages.success(request, "شما با موفقیت ثبت‌نام شده‌اید")
             return redirect("events:events_list")
     return render(
         request, "events/event_registration.html",
