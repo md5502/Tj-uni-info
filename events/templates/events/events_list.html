@@ -20,7 +20,6 @@
                 <div class="col-lg-6 col-md-8">
                     <form method="get" action="{% url 'events:events_list' %}" class="d-flex">
                         <input class="form-control me-2 search-bar" type="search" name="search" placeholder="جست و جو" value="{{ request.GET.search }}" aria-label="Search">
-                        <input type="date" id="date" name="date" class="form-control me-2" value="{{ request.GET.date }}">
                         <button class="btn btn-outline-danger" type="submit">
                             <i class="bi bi-search"></i>
                         </button>
