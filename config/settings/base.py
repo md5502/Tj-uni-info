@@ -1,4 +1,5 @@
 from pathlib import Path
+
 from decouple import config
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -15,6 +16,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # local
     "events.apps.EventsConfig",
+    "professor_staff.apps.ProfessorStaffConfig",
     # 3rd party
     "crispy_forms",
     "crispy_bootstrap5",
