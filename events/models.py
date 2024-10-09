@@ -36,7 +36,7 @@ class EventUser(models.Model):
     fname = models.CharField("نام خانوادگی", max_length=100)
     phone_number = models.CharField("شماره تلفن", max_length=20)
     email = models.EmailField("آدرس ایمیل", max_length=254)
-    event = models.ForeignKey(Event, verbose_name="رخداد", on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, verbose_name="رخداد", on_delete=models.CASCADE, related_name="registered_users")
 
     created_at = models.DateTimeField("ساخته شده در", auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField("ویرایش شده در", auto_now=True, null=True, blank=True)
