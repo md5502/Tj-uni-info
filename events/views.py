@@ -29,7 +29,9 @@ def events_list(request):
         events = events.filter(Q(title__icontains=search_query))
 
     for i in events:
-        first_image = EventImage.objects.filter(event=i).first().image
+        first_image = EventImage.objects.filter(event=i).first()
+        if first_image:
+            first_image = first_image.image
         event_date = jdatetime.datetime.fromgregorian(date=i.schedule_date).strftime("%Y/%m/%d")
 
         event = {
@@ -45,19 +47,21 @@ def events_list(request):
 
 
 def event_detail(request, slug):
+    context = {}
+
     event = get_object_or_404(Event, slug=slug)
     event_images = EventImage.objects.filter(event=event)
-    extra_images = [i.image for i in event_images[1:]]
+    if event_images:
+        context["main_image"] = event_images[0].image
+        extra_images = [i.image for i in event_images[1:]]
+        context["extra_images"] = extra_images
     event_description_html = markdown.markdown(event.description)
 
-    context = {
-        "event": event,
-        "main_image": event_images[0].image,
-        "extra_images": extra_images,
-        "event_date" : jdatetime.datetime.fromgregorian(date=event.schedule_date).strftime("%Y/%m/%d"),
-        "location": event.location,  # Add location field
-        "event_description_html": event_description_html,  # Add location field
-    }
+    context["event"] = event
+    event_date = jdatetime.datetime.fromgregorian(date=event.schedule_date).strftime("%Y/%m/%d")
+    context["event_date"] = event_date
+    context["location"] = event.location
+    context["event_description_html"] = event_description_html
 
     return render(
         request,
