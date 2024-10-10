@@ -90,13 +90,14 @@ class Professor(models.Model):
     fname = models.CharField(max_length=100, verbose_name="نام خانوادگی")
     position = models.CharField(max_length=100, verbose_name="سمت کاری", null=True, blank=True)
     location = models.CharField(max_length=100, verbose_name="محل کار", null=True, blank=True)
+    tag = models.CharField(verbose_name="تگ کاری", max_length=30, null=True, blank=True)
     phone_number = models.CharField(max_length=20, verbose_name="شماره تلفن")
     profile_image = models.ImageField(
         verbose_name="عکس",
         upload_to="professors/profiles",
         default="professors/profiles/default.svg",
     )
-
+    slug = models.SlugField(verbose_name="شناسه", allow_unicode=True,  blank=True, null=True)
     research_areas = models.ManyToManyField(ResearchArea, verbose_name="حوزه‌های تحقیقاتی", blank=True)
     educational_records = models.ManyToManyField(EducationalRecord, verbose_name="سوابق تحصیلی", blank=True)
     teaching_courses = models.ManyToManyField(TeachingCourse, verbose_name="دروس تدریسی", blank=True)
@@ -117,8 +118,10 @@ class Staff(models.Model):
     name = models.CharField(max_length=100, verbose_name="نام")
     fname = models.CharField(max_length=100, verbose_name="نام خانوادگی")
     position = models.CharField(max_length=100, verbose_name="سمت کاری")
+    tag = models.CharField(verbose_name="تگ کاری", max_length=30, null=True, blank=True)
     location = models.CharField(max_length=100, verbose_name="محل کار", null=True, blank=True)
     phone_number = models.CharField(max_length=20, verbose_name="شماره تلفن")
+    slug = models.SlugField(verbose_name="شناسه", allow_unicode=True, blank=True, null=True)
     profile_image = models.ImageField(
         verbose_name="عکس",
         upload_to="staff/profiles",

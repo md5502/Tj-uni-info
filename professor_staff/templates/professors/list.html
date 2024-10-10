@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    لیست اساتید
+{% endblock title %}
+    
+
+{% block content %}
+    
+    {% for professor in professors %}
+        {{professor.name}}
+        {{professor.fname}}
+        {{professor.position}}
+        {{professor.tag}}
+        <img src="{{professor.profile.url}}" alt="{{professor.name}}">
+        <br/>
+        <a href="{% url "professors_staffs:professor_detail" professor.slug %}" >جزئیات<</a>
+    {% endfor %}
+        
+{% endblock content %}
+    
