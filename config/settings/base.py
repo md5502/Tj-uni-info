@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     # local
     "events.apps.EventsConfig",
     "professor_staff.apps.ProfessorStaffConfig",
+    "home.apps.HomeConfig",
     # 3rd party
     "crispy_forms",
     "crispy_bootstrap5",
