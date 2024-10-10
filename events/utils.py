@@ -1,7 +1,9 @@
 import csv
 from io import StringIO
 
+from django.core.mail import EmailMessage
 from django.http import HttpResponse
+from django.template.loader import render_to_string
 
 
 def generate_csv_response(queryset):
@@ -43,3 +45,23 @@ def generate_csv_response(queryset):
     response["Content-Disposition"] = 'attachment; filename="registered_users.csv"'
 
     return response
+
+
+
+
+def send_registration_email(user_email, name, event_title, event_date, event_location, event_url):
+    # Render the HTML email template
+    subject = "تأیید ثبت‌نام در رخداد"
+    message = render_to_string(
+        "emails/event_registration.html",
+        {
+            "first_name": name,
+            "event_title": event_title,
+            "event_date": event_date,
+            "event_location": event_location,  # Include location in the email
+            "event_url": event_url,
+        },
+    )
+    email = EmailMessage(subject, message, to=[user_email])
+    email.content_subtype = "html"  # Set the email to HTML format
+    email.send()
