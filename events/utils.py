@@ -13,6 +13,8 @@ def generate_csv_response(queryset):
         "نام",
         "نام خانوادگی",
         "شماره تماس",
+        "شماره دانشجویی",
+        "رشته تحصیلی",
         "ایمیل",
     ]
 
@@ -27,7 +29,9 @@ def generate_csv_response(queryset):
                 user_info = {
                     "نام": user.name,
                     "نام خانوادگی": user.fname,
-                    "شماره تماس": user.phone_number,
+                    "شماره تماس": user.phone_number if user.phone_number else "***",
+                    "شماره دانشجویی": user.student_number,
+                    "رشته تحصیلی": user.branch if user.branch else "***",
                     "ایمیل": user.email,
                 }
                 combined_info = {**user_info}

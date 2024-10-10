@@ -34,8 +34,10 @@ class EventImage(models.Model):
 class EventUser(models.Model):
     name = models.CharField("نام", max_length=100)
     fname = models.CharField("نام خانوادگی", max_length=100)
-    phone_number = models.CharField("شماره تلفن", max_length=20)
+    phone_number = models.CharField("شماره تلفن", max_length=20, null=True, blank=True)
+    student_number = models.CharField("شماره دانشجویی", max_length=20)
     email = models.EmailField("آدرس ایمیل", max_length=254)
+    branch = models.CharField(verbose_name="رشته تحصیلی", max_length=100, null=True, blank=True)
     event = models.ForeignKey(Event, verbose_name="رخداد", on_delete=models.CASCADE, related_name="registered_users")
 
     created_at = models.DateTimeField("ساخته شده در", auto_now_add=True, null=True, blank=True)
