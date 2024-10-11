@@ -16,6 +16,8 @@ templates/            # HTML templates for the project
 media/                # Uploaded media (profile pictures, event images)
 manage.py             # Django management command utility
 requirements.txt      # Python dependencies
+.env                  # Environment variables (not committed to version control)
+.env-sample           # Sample .env file to demonstrate required environment variables
 ```
 
 ### Features
@@ -45,22 +47,20 @@ requirements.txt      # Python dependencies
    pip install -r requirements.txt
    ```
 
-4. **Set the environment variable**:
+4. **Set up environment variables**:
 
-   - **Linux/Mac**:
+   - Copy `.env-sample` to `.env`:
      ```bash
-     export DJANGO_SETTINGS_MODULE=config.settings.development
-     ```
-   
-   - **Windows** (Command Prompt):
-     ```cmd
-     set DJANGO_SETTINGS_MODULE=config.settings.development
+     cp .env-sample .env
      ```
 
-   - **Windows** (PowerShell):
-     ```powershell
-     $env:DJANGO_SETTINGS_MODULE="config.settings.development"
+   - Open `.env` and configure the necessary values:
+     ```bash
+     SECRET_KEY=your_secret_key
+     DEBUG=True
      ```
+
+   **Note**: The `.env-sample` file is provided to demonstrate what environment variables are required. You should not commit the `.env` file to version control as it contains sensitive information such as the `SECRET_KEY`.
 
 5. **Run migrations**:
    ```bash
@@ -80,6 +80,19 @@ requirements.txt      # Python dependencies
 8. **Access the app**:
    - Open [http://localhost:8000](http://localhost:8000) in your browser.
    - Admin panel is available at [http://localhost:8000/admin](http://localhost:8000/admin).
+
+## .env and .env-sample
+
+- **.env**: This file stores environment variables such as the Django settings module, secret keys, and any other sensitive configuration. This file is ignored by Git to keep sensitive information private. You need to create your own `.env` file by copying the provided `.env-sample`.
+
+- **.env-sample**: This is a sample file that lists all the required environment variables but without actual values. Use it as a reference to create your own `.env` file. Never commit your actual `.env` file to version control to avoid exposing sensitive data.
+
+Example content of `.env-sample`:
+
+```bash
+SECRET_KEY=your_secret_key
+DEBUG=True
+```
 
 ## Contributing
 
