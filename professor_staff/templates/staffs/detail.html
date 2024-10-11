@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    {{staff.name}} {{staff.fname}}
+{% endblock title %}
+
+
+{% block content %}
+    {{staff.name}}
+    <br/>
+    {{staff.fname}}
+    <br/>
+
+    {{staff.location}}
+    <br/>
+
+    {{staff.tag}}
+    <br/>
+
+    {{staff.phone_number}}
+    <br/>
+
+    {{staff.profile_image}}
+    <br/>
+    
+    work_experiences
+    {% for work_experience in staff.work_experiences.all %}
+        {{work_experience.title}}<br/>
+        {{work_experience.form_date}}<br/>
+        {{work_experience.to_date}}<br/>
+    {% endfor %}
+    <br/>
+    
+    papers
+    {% for paper in staff.papers.all %}
+        {{paper.title}}<br/>
+        {{paper.date}}<br/>
+        {{paper.link}}<br/>
+    {% endfor %}
+    <br/>
+
+    educational_records
+    {% for educational_record in staff.educational_records.all %}
+        {{paper.title}}<br/>
+        {{paper.date}}<br/>
+    {% endfor %}
+    <br/>
+    research_areas
+    {% for research_area in staff.research_areas.all %}
+        {{paper.title}}<br/>
+    {% endfor %}
+    <br/>
+
+    teaching_courses
+    {% for teaching_course in staff.teaching_courses.all %}
+        {{teaching_course.title}}<br/>
+        {{teaching_course.semester}}<br/>
+    {% endfor %}
+    <br/>
+
+    academic_activities
+    {% for academic_activitie in staff.academic_activities.all %}
+        {{academic_activitie.title}}<br/>
+    {% endfor %}
+    <br/>
+
+    external_links
+    {% for external_link in staff.external_links.all %}
+        {{external_link.title}}<br/>
+    {% endfor %}
+    <br/>
+    
+    
+
+    
+
+{% endblock content %}
+    

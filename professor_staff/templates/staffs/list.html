@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    لیست کارمندان
+{% endblock title %}
+    
+
+{% block content %}
+    
+    {% for staff in staffs %}
+        {{staff.name}}
+        {{staff.fname}}
+        {{staff.position}}
+        {{staff.tag}}
+        <img src="{{staff.profile.url}}" alt="{{staff.name}}">
+        <br/>
+        <a href="{% url "professors_staffs:staff_detail" staff.slug %}" >جزئیات<</a>
+    {% endfor %}
+        
+{% endblock content %}
+    
