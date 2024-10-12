@@ -4,6 +4,8 @@ from django.contrib import admin, messages
 from django.shortcuts import redirect
 from django.urls import path
 from django.utils.text import slugify
+from django_jalali.admin.widgets import AdminSplitjDateTime,AdminjDateWidget
+from django_jalali.db import models as jmodels  # Import jalali models
 
 from events.utils import generate_csv_response
 
@@ -14,7 +16,6 @@ class EventImageInline(admin.TabularInline):
     model = EventImage
     extra = 1
 
-
 class EventAdmin(admin.ModelAdmin):
     inlines = [EventImageInline]
     exclude = ("slug",)
@@ -22,9 +23,15 @@ class EventAdmin(admin.ModelAdmin):
     actions = ["registered_users"]
 
     # Display fields in list view
-    list_display = ["title", "location", "schedule_date", "created_at"]
+    list_display = ["title", "location", "schedule_date", "created_at", "capacity"]
     list_filter = ["location", "schedule_date"]
     search_fields = ["title", "location"]
+
+    # Specify form field overrides
+    formfield_overrides = {
+        jmodels.jDateTimeField: {"widget": AdminSplitjDateTime},
+        jmodels.jDateField: {"widget": AdminjDateWidget},
+    }
 
     @admin.action(description="دانلود لیست افرادی که در این رخداد ثبت‌نام کرده اند")
     def registered_users(self, request, queryset):

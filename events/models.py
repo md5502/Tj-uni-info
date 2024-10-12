@@ -1,4 +1,5 @@
 from django.db import models
+from django_jalali.db.models import jDateField, jDateTimeField
 from mdeditor.fields import MDTextField
 
 
@@ -6,11 +7,12 @@ class Event(models.Model):
     title = models.CharField("عنوان", max_length=100)
     description = MDTextField(verbose_name="توضیحات")
     slug = models.SlugField("شناسه", unique=True, allow_unicode=True, null=True, blank=True)
-    schedule_date = models.DateTimeField("تاریخ برگذاری")
+    schedule_date = jDateTimeField(verbose_name="تاریخ برگذاری")
+    register_deadline = jDateField(verbose_name="تاریخ مهلت ثبت‌نام")
     location = models.CharField("مکان برگذاری", max_length=200, default="سالن همایش قاسم سلیمانی")
     created_at = models.DateTimeField("ساخته شده در", auto_now_add=True)
     updated_at = models.DateTimeField("ویرایش شده در", auto_now=True)
-
+    capacity = models.PositiveIntegerField("ظرفیت رخداد", null=True, blank=True)
     class Meta:
         verbose_name = "رخداد"
         verbose_name_plural = "رخداد ها"
