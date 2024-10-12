@@ -22,6 +22,8 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5",
     "mdeditor",
+
+    "django_jalali",
 ]
 
 MIDDLEWARE = [
