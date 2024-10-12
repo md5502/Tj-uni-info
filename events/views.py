@@ -1,6 +1,9 @@
+from datetime import timedelta
+
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.urls import reverse
+from django.utils.timezone import now
 
 from .forms import EventUserRegistration
 from .selectors import get_event_with_given_slug, is_user_registered_in_event
@@ -25,6 +28,17 @@ def event_detail(request, slug):
 def event_registration(request, slug):
     form = EventUserRegistration()
     event = get_event_with_given_slug(slug)
+    current_date = now()
+
+    if event.register_deadline < current_date  :
+        messages.error(request, "مهلت ثبت‌نام تمام شده است")
+        return redirect("events:event_detail", slug=slug)
+
+    # Check if the event is full
+    if event.capacity == 0:
+        messages.error(request, "ظرفیت تمام شده است")
+        return redirect("events:event_detail", slug=slug)
+
     event_title = event.title
     event_date = event.schedule_date
     event_location = event.location
@@ -32,15 +46,21 @@ def event_registration(request, slug):
     if request.method == "POST":
         form = EventUserRegistration(request.POST)
         if form.is_valid():
-            event_user = form.save(commit=False)
             email = form.cleaned_data["email"]
             already_user = is_user_registered_in_event(event, email)
-            if already_user:
-                messages.success(request, "شما قبلا در این رخداد ثبت‌نام کرده‌اید")
-                return redirect("events:event_detail", slug)
 
+            if already_user:
+                messages.error(request, "شما قبلا در این رخداد ثبت‌نام کرده‌اید")
+                return redirect("events:event_detail", slug=slug)
+
+            event_user = form.save(commit=False)
             event_user.event = event
             event_user.save()
+
+            # Decrease the event's capacity by 1
+            event.capacity -= 1
+            event.save()
+
             full_name = form.cleaned_data["name"] + " " + form.cleaned_data["fname"]
             send_registration_email(
                 user_email=email,
@@ -52,7 +72,7 @@ def event_registration(request, slug):
             )
 
             messages.success(request, "شما با موفقیت ثبت‌نام شده‌اید")
-            return redirect("events:events_list")
+            return redirect("events:event_detail", slug=slug)
 
     return render(
         request,

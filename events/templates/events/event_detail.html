@@ -25,12 +25,25 @@
             </div>
             <div style="margin-top: auto;" class="col-md-4">
                 <h2 class="event-detail-title">{{ event_title }}</h2>
-                <span class="event-detail-date"><strong>تاریخ برگزاری:</strong> {{ event_date }}</span> <!-- تاریخ برگزاری -->
-                <p class="event-detail-location"><strong>مکان برگزاری:</strong> {{ event.location }}</p> <!-- مکان برگزاری -->
-                <a class="btn btn-success" href="{% url 'events:event_registration' event_slug %}">
-                    ثبت‌نام
-                </a>
+                <p class="event-detail-date"><strong>تاریخ برگزاری:</strong> {{ event_date|date:"d-m-Y" }}</p> <!-- تاریخ برگزاری -->
+                <p class="event-detail-date"><strong>زمان برگزاری:</strong> {{ event_date|time:"H:i" }}</p> <!-- زمان برگزاری -->
+                <p class="event-detail-date"><strong>مهلت ثبت‌نام:</strong> {{ event_register_deadline|date:"d-m-Y" }}</p> <!-- مهلت ثبت‌نام -->
+                <p class="event-detail-location"><strong>مکان برگزاری:</strong> {{ location }}</p> <!-- مکان برگزاری -->
+                <p class="event-detail-capacity"><strong>ظرفیت:</strong> {{ capacity }} نفر</p> <!-- ظرفیت -->
+
+                {% if capacity > 0 %}
+                    <a class="btn btn-success" href="{% url 'events:event_registration' event_slug %}">
+                        ثبت‌نام
+                    </a>
+                {% else %}
+                    <p class="text-danger">
+                        ثبت‌نام امکان‌پذیر نیست (ظرفیت تکمیل شده)
+                    </p>
+                {% endif %}
+
             </div>
+            
+            
         </div>
 
         <!-- Event Description -->

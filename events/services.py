@@ -65,7 +65,9 @@ def build_event_context(slug):
     context["event_title"] = event.title
     context["event_slug"] = event.slug
     context["event_date"] = event.schedule_date
+    context["event_register_deadline"] = event.register_deadline
     context["location"] = event.location
+    context["capacity"] = event.capacity
 
     # Convert markdown description to HTML
     context["event_description_html"] = markdown.markdown(event.description)

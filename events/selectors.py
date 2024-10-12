@@ -70,9 +70,8 @@ def get_event_with_given_slug(slug):
     Raises:
         Http404: If the event with the given slug does not exist.
     """
-    event = get_object_or_404(Event, slug=slug)
-    event.schedule_date = jdatetime.datetime.fromgregorian(date=event.schedule_date).strftime("%Y/%m/%d")
-    return event
+
+    return get_object_or_404(Event, slug=slug)
 
 
 def is_user_registered_in_event(event, email):
