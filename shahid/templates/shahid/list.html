@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Events List -->
+<div class="container my-5">
+    <!-- Navigation -->
+    <div class="navbar navbar-light bg-light">
+        <h2 class="mx-right">شهداء</h2>
+        <a href="#" class="btn btn-outline-danger"><i class="bi bi-arrow-left"></i></a>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="container mt-5 my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <form method="get" action="{% url 'shahid:shahid_list' %}" class="d-flex">
+                    <input class="form-control me-2 search-bar" type="search" name="search" placeholder="جست و جو" value="{{ request.GET.search }}" aria-label="Search">
+                    <button class="btn btn-outline-danger" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        {% for shahid in shahid_list %}
+            <div class="col-md-4">
+                <div class="card">
+                    <span>{{ shahid.martyrdom_location }}</span>
+                    <img class="card-img-top" src="{{ shahid.profile_image.url }}" alt="تصویر شهید">
+                    <div class="card-body text-right"> 
+                        <h5 class="card-title">{{ shahid.full_name }}</h5>
+                        <p class="card-text">{{ shahid.life_story }}</p>
+                        <a href="{% url 'shahid:shahid_detail' shahid.slug %}" class="btn btn-primary">مشاهده جزئیات</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

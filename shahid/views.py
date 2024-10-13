@@ -6,23 +6,24 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 
 from .models import Shahid
+from .selectors import get_shahid_via_slug
+from .services import build_shahid_list_context
 
 
 def shahid_list(request):
-    shahids = Shahid.objects.all()
-
-    return render(request, "shahid/list.html", {"shahid_list": shahids})
+    context = build_shahid_list_context(request)
+    return render(request, "shahid/list.html", context)
 
 
 def shahid_detail(request, slug):
-    shahid = get_object_or_404(Shahid, slug=slug)
+    shahid = get_shahid_via_slug(slug)
     return render(request, "shahid/detail.html", {"shahid": shahid})
 
 
 
 
 def generate_qr_code(request, slug):
-    shahid = get_object_or_404(Shahid, slug=slug)
+    shahid = get_shahid_via_slug(slug)
     qr_data = request.build_absolute_uri(f"/shahid/{shahid.slug}/")
     qr = qrcode.make(qr_data)
 
