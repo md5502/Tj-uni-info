@@ -16,6 +16,11 @@ class Shahid(models.Model):
     )
     life_story = models.TextField(null=True, blank=True, verbose_name="زندگی‌نامه")
     will = models.TextField(null=True, blank=True, verbose_name="وصیت‌نامه")
+    profile_image = models.ImageField(
+        verbose_name="عکس پروفایل",
+        upload_to="shohada/profiles",
+        default="shohada/profiles/default.svg",
+    )
     important_quotes = models.TextField(
         null=True,
         blank=True,
