@@ -65,10 +65,17 @@ class Association(models.Model):
     channel_link = models.URLField("لینک کانال", max_length=200, blank=True, null=True)
     created_at = jDateTimeField(verbose_name="ساخته شده در", auto_now_add=True)
     updated_at = jDateTimeField(verbose_name="ویرایش شده در", auto_now=True)
-    profile_image = models.ImageField(
+    logo = models.ImageField(
         verbose_name="لوگو انجمن",
         upload_to="association/logos",
         default="association/logos/default.svg",
+    )
+    slug = models.SlugField(
+        null=True,
+        blank=True,
+        unique=True,
+        allow_unicode=True,
+        verbose_name="شناسه",
     )
 
     class Meta:

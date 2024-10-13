@@ -1,4 +1,7 @@
+import uuid
+
 from django.contrib import admin
+from django.utils.text import slugify
 
 from .models import Association, AssociationUser, User
 
@@ -17,6 +20,7 @@ class UserAdmin(admin.ModelAdmin):
     list_display = ("first_name", "last_name", "email")
     search_fields = ("first_name", "last_name", "email")
     ordering = ("-created_at",)
+    exclude = ("slug",)
 
 # Register Association model in admin
 @admin.register(Association)
@@ -26,6 +30,17 @@ class AssociationAdmin(admin.ModelAdmin):
     list_filter = ("association_type",)
     ordering = ("-created_at",)
     inlines = [AssociationUserInline]  # Add the inline to the Association admin
+
+
+    def save_model(self, request, obj, form, change):
+        # Generate slug only if it's not provided
+        if not obj.slug:
+            obj.slug = slugify(
+                f"{str(uuid.uuid4()).split('-')[0]} {obj.name}",
+                allow_unicode=True,
+            )
+        super().save_model(request, obj, form, change)
+
 
 # Register AssociationUser model in admin
 @admin.register(AssociationUser)
