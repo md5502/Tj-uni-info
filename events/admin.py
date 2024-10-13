@@ -4,7 +4,7 @@ from django.contrib import admin, messages
 from django.shortcuts import redirect
 from django.urls import path
 from django.utils.text import slugify
-from django_jalali.admin.widgets import AdminSplitjDateTime,AdminjDateWidget
+from django_jalali.admin.widgets import AdminjDateWidget, AdminSplitjDateTime
 from django_jalali.db import models as jmodels  # Import jalali models
 
 from events.utils import generate_csv_response
