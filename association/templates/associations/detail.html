@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {{ association.name }}
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header bg-primary text-white text-center">
+            <h3>{{ association.name }}</h3>
+        </div>
+        <div class="text-center mt-4">
+            <img
+                src="{{ association.logo.url }}"
+                class="img-fluid rounded-top"
+                alt="{{ association.name }}"
+                style="max-width: 150px;"
+            />
+        </div>
+        <div class="card-body">
+            <p><strong>نوع انجمن:</strong> {{ association.get_association_type_display }}</p>
+            <p><strong>توضیحات:</strong> {{ association.description }}</p>
+            <p><strong>اهداف:</strong> {{ association.goals|safe }}</p>
+            <p><strong>لینک شبکه‌های اجتماعی:</strong> <a href="{{ association.social_media_link }}" target="_blank">{{ association.social_media_link }}</a></p>
+            <p><strong>لینک سایت:</strong> <a href="{{ association.site_link }}" target="_blank">{{ association.site_link }}</a></p>
+            <p><strong>لینک کانال:</strong> <a href="{{ association.channel_link }}" target="_blank">{{ association.channel_link }}</a></p>
+
+            <!-- Displaying members -->
+            <h4 class="mt-4">اعضای انجمن:</h4>
+            <ul>
+                {% for member in association.associationuser_set.all %}
+                    <li>{{ member.user_id.first_name }} {{ member.user_id.last_name }} - {{ member.position }}</li>
+                {% empty %}
+                    <p>عضوی برای نمایش وجود ندارد.</p>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock content %}

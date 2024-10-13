@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    انجمن ها
+{% endblock title %}
+
+
+{% block content %}
+    <div class="container my-5 center">
+        
+        {% for association in associations %}
+        <div class="card mb-8 " style="max-width: 1200px;" >
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img
+                        src="{{ association.logo.url }}"
+                        class="img-fluid rounded-start"
+                        alt="Card title"
+                    />
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{association.name}}</h5>
+                        <p class="card-text">
+                            {{association.description}}
+                        </p>
+                        <a class="btn btn-primary" href="{% url 'association:association_detail' association.slug %}" role="button">جزعیات</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% endfor %}
+            
+    </div>
+    
+{% endblock content %}
+    
