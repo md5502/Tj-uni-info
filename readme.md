@@ -8,25 +8,56 @@ Here is an overview of the key components:
 
 ```
 config/               # Django settings and configuration
-events/               # Event management application
-home/                 # Main landing page app
-professor_staff/      # Professor and staff profiles app
-static/               # Static files (CSS, JS, Images)
-templates/            # HTML templates for the project
-media/                # Uploaded media (profile pictures, event images)
-manage.py             # Django management command utility
-requirements.txt      # Python dependencies
-.env                  # Environment variables (not committed to version control)
-.env-sample           # Sample .env file to demonstrate required environment variables
+events/               # Event management, event registration, and related services
+professor_staff/      # Professor and staff profiles, work experiences, and related services
+association/          # Student associations, including profiles and logos
+shahid/               # Martyr (Shohada) profiles with related details
+frontend/             # Frontend templates and static files
+home/                 # Home page and main navigation
+static/               # Static files (CSS, images, JavaScript)
+templates/            # Base and shared HTML templates
+media/                # Media files (profiles, event images, logos)
+
 ```
+
+### Detailed Explanation:
+
+- **config/**: Contains the settings, including `base.py`, `development.py`, and `production.py`, as well as URL and WSGI configurations.
+  
+- **events/**: Manages event creation, registration, and listing. It includes the necessary templates, models, and views for handling events. The `populate_date` management command is available to pre-fill dates.
+  
+- **professor_staff/**: Handles professor and staff profiles, including their educational background, work experience, and teaching courses. Templates are available for viewing detailed and list views of professors and staff members.
+  
+- **association/**: Manages student associations, including their profile information, logos, and a list of available associations. Templates for viewing association details and listings are included.
+  
+- **shahid/**: Manages martyr (Shohada) profiles with information such as their life story, birth and martyrdom dates, and images. The QR code generation for each martyr is also handled here.
+  
+- **frontend/**: Contains the frontend HTML for the home page.
+  
+- **home/**: Manages the home page view and its template.
+  
+- **static/**: Contains static assets such as CSS, JavaScript, and images.
+  
+- **templates/**: Contains shared HTML templates, including the base layout (`base.html`) and email templates.
+  
+- **media/**: Stores uploaded media, such as profile images, association logos, event images, and martyr profiles.
+
 
 ### Features
 
 - **Event Management**: Create, edit, and register for events. Each event has a title, description, location, and schedule date.
 - **Professor and Staff Profiles**: Profiles with detailed information such as work experience and academic background.
 - **Registration Forms**: Event registration forms with custom validations.
+- **Student Associations**: Browse student associations with their respective logos and profile details.
 - **Admin Panel**: Manage events, professors, and staff through Django's admin interface.
+- **Martyr Profiles (Shohada)**: Access detailed martyr information with QR code support.
 - **Farsi Localization**: Supports Farsi with RTL layout for users.
+
+## Technologies
+
+- **Django**: Backend framework.
+- **SQLite**: Default database (can be switched to PostgreSQL for production).
+- **Docker**: Optional containerization support via `Dockerfile` and `docker-compose.yml`.
 
 ## Installation
 
@@ -127,3 +158,4 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 ## Contact
 
 For any questions or suggestions, feel free to contact me at [m.baniasadi.d@gmail.com](mailto:m.baniasadi.d@gmail.com).
+
