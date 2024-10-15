@@ -10,8 +10,10 @@ class Event(models.Model):
     schedule_date = jDateTimeField(verbose_name="تاریخ برگذاری")
     register_deadline = jDateField(verbose_name="تاریخ مهلت ثبت‌نام")
     location = models.CharField("مکان برگذاری", max_length=200, default="سالن همایش قاسم سلیمانی")
-    created_at = models.DateTimeField("ساخته شده در", auto_now_add=True)
-    updated_at = models.DateTimeField("ویرایش شده در", auto_now=True)
+
+    created_at = jDateTimeField(verbose_name="ساخته شده در", auto_now_add=True)
+    updated_at = jDateTimeField(verbose_name="ویرایش شده در", auto_now=True)
+
     capacity = models.PositiveIntegerField("ظرفیت رخداد", null=True, blank=True)
     class Meta:
         verbose_name = "رخداد"
@@ -24,6 +26,9 @@ class Event(models.Model):
 class EventImage(models.Model):
     event = models.ForeignKey(Event, verbose_name="رخداد", on_delete=models.CASCADE, related_name="images")
     image = models.ImageField("عکس", upload_to="events_images/")
+
+    created_at = jDateTimeField(verbose_name="ساخته شده در", auto_now_add=True)
+    updated_at = jDateTimeField(verbose_name="ویرایش شده در", auto_now=True)
 
     class Meta:
         verbose_name = "عکس رخداد"
@@ -42,8 +47,8 @@ class EventUser(models.Model):
     branch = models.CharField(verbose_name="رشته تحصیلی", max_length=100, null=True, blank=True)
     event = models.ForeignKey(Event, verbose_name="رخداد", on_delete=models.CASCADE, related_name="registered_users")
 
-    created_at = models.DateTimeField("ساخته شده در", auto_now_add=True, null=True, blank=True)
-    updated_at = models.DateTimeField("ویرایش شده در", auto_now=True, null=True, blank=True)
+    created_at = jDateTimeField(verbose_name="ساخته شده در", auto_now_add=True)
+    updated_at = jDateTimeField(verbose_name="ویرایش شده در", auto_now=True)
 
     class Meta:
         verbose_name = "شرکت‌کننده"

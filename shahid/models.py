@@ -1,5 +1,6 @@
 from django.db import models
 from django_jalali.db import models as jmodels
+from django_jalali.db.models import jDateTimeField
 
 
 class Shahid(models.Model):
@@ -33,6 +34,9 @@ class Shahid(models.Model):
         allow_unicode=True,
         verbose_name="شناسه",
     )
+
+    created_at = jDateTimeField(verbose_name="ساخته شده در", auto_now_add=True)
+    updated_at = jDateTimeField(verbose_name="ویرایش شده در", auto_now=True)
 
     def __str__(self) -> str:
         return f"{self.first_name} {self.last_name}"

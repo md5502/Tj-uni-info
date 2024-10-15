@@ -63,8 +63,7 @@ class Association(models.Model):
     social_media_link = models.URLField("لینک شبکه اجتماعی", max_length=200, blank=True, null=True)
     site_link = models.URLField("لینک وبسایت", max_length=200, blank=True, null=True)
     channel_link = models.URLField("لینک کانال", max_length=200, blank=True, null=True)
-    created_at = jDateTimeField(verbose_name="ساخته شده در", auto_now_add=True)
-    updated_at = jDateTimeField(verbose_name="ویرایش شده در", auto_now=True)
+
     logo = models.ImageField(
         verbose_name="لوگو انجمن",
         upload_to="association/logos",
@@ -78,6 +77,8 @@ class Association(models.Model):
         verbose_name="شناسه",
     )
 
+    created_at = jDateTimeField(verbose_name="ساخته شده در", auto_now_add=True)
+    updated_at = jDateTimeField(verbose_name="ویرایش شده در", auto_now=True)
     class Meta:
         verbose_name = "انجمن"
         verbose_name_plural = "انجمن ها"
