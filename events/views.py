@@ -1,22 +1,23 @@
-
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.timezone import now
 
 from .forms import EventUserRegistration
-from .selectors import get_event_with_given_slug, is_user_registered_in_event
+from .selectors import get_event_list, get_event_with_given_slug, is_user_registered_in_event
 from .services import build_event_context, build_events_list_context
 from .utils import send_registration_email
 
 
 def events_list(request):
-    context = build_events_list_context(request)
+    events = get_event_list()
+    context = build_events_list_context(events)
     return render(request, "events/events_list.html", context)
 
 
 def event_detail(request, slug):
-    context = build_event_context(slug)
+    event = get_event_with_given_slug(slug)
+    context = build_event_context(event)
     return render(
         request,
         "events/event_detail.html",
@@ -29,7 +30,7 @@ def event_registration(request, slug):
     event = get_event_with_given_slug(slug)
     current_date = now()
 
-    if event.register_deadline < current_date  :
+    if event.register_deadline < current_date:
         messages.error(request, "مهلت ثبت‌نام تمام شده است")
         return redirect("events:event_detail", slug=slug)
 

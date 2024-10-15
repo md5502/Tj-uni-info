@@ -1,17 +1,11 @@
-from django.db.models import Q
-
-from shahid.selectors import get_shahid_list
 
 
-def build_shahid_list_context(request):
+
+def build_shahid_list_context(shahid_list):
     context = {}
-    shahid_list = get_shahid_list()
 
     context["shahid_list"] = []
       # Check for search query and filter events
-    search_query = request.GET.get("search")
-    if search_query:
-        shahid_list = shahid_list.filter(Q(first_name__icontains=search_query))
 
 
     for item in shahid_list:

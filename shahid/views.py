@@ -6,20 +6,19 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 
 from .models import Shahid
-from .selectors import get_shahid_via_slug
+from .selectors import get_shahid_list, get_shahid_via_slug
 from .services import build_shahid_list_context
 
 
 def shahid_list(request):
-    context = build_shahid_list_context(request)
+    shahid_list = get_shahid_list(request)
+    context = build_shahid_list_context(shahid_list)
     return render(request, "shahid/list.html", context)
 
 
 def shahid_detail(request, slug):
     shahid = get_shahid_via_slug(slug)
     return render(request, "shahid/detail.html", {"shahid": shahid})
-
-
 
 
 def generate_qr_code(request, slug):
@@ -30,9 +29,6 @@ def generate_qr_code(request, slug):
     response = HttpResponse(content_type="image/png")
     qr.save(response, "PNG")
     return response
-
-
-
 
 
 def download_shahid_images(request, slug):
