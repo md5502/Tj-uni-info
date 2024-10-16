@@ -10,7 +10,7 @@ from .utils import send_registration_email
 
 
 def events_list(request):
-    events = get_event_list()
+    events = get_event_list(request)
     context = build_events_list_context(events)
     return render(request, "events/events_list.html", context)
 
