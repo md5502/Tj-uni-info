@@ -1,0 +1,166 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: ;
+}
+
+:root {
+    --mainColorOne: rgb(10, 10, 74);
+    --mainColorTwo: #F2324F;
+    --mainColorThree: #FEF7FF;
+    --mainColorFour: #cdda23;
+    --mainWhite: #fff;
+    --mainBlack: #000;
+    --mainGrey: #646464;
+}
+
+/* ........................................................................................... */
+
+/* navbar */
+
+header {
+    box-shadow: 0px 30px 30px 0px #00000040;
+}
+
+nav {
+    background-color: var(--mainColorOne);
+}
+
+.active {
+    color: var(--mainColorTwo) !important;
+}
+
+.nav-link {
+    color: var(--mainWhite);
+}
+
+.nav-link:hover {
+    color: var(--mainColorFour);
+    transition: all 0.7s;
+}
+
+.navbar-brand {
+    color: var(--mainWhite);
+}
+
+.navbar-brand:hover {
+    color: var(--mainWhite);
+    font-size: 22px;
+    transition: all 0.7s;
+}
+
+/* ........................................................................................... */
+
+.btn {
+    width: 128px;
+    height: 40px;
+    border-radius: 100px;
+    color: var(--mainWhite);
+    background-color: var(--mainColorTwo);
+}
+
+.Sbtn {
+    width: 128px;
+    height: 40px;
+    border-radius: 100px;
+    border: 1.8px solid var(--mainColorTwo);
+    color: var(--mainBlack);
+    background-color: var(--mainWhite);
+}
+
+.Sbtn:hover {
+    color: var(--mainWhite);
+    background-color: var(--mainGrey);
+}
+
+.nameTitle {
+    text-decoration: none;
+    color: var(--mainBlack);
+}
+
+.nameTitle:hover {
+    color: var(--mainBlack);
+}
+
+.card {
+    background-color: var(--mainColorThree);
+    border: 1.8px solid var(--mainColorTwo);
+    border-radius: 15px;
+    height: 477px;
+}
+
+.more {
+    text-decoration: none;
+    color: var(--mainColorTwo);
+}
+
+.more:hover {
+    color: var(--mainColorTwo);
+}
+
+p {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+/* ........................................................................................... */
+
+/* footer */
+
+footer {
+    color: var(--mainBlack);
+    padding: 40px 0;
+}
+  
+.footer-contact i {
+    color: var(--mainColorTwo);
+    margin-left: 10px;
+}
+  
+.social-icons a {
+    color: var(--mainColorTwo);
+    margin-right: 15px;
+    font-size: 1.5rem;
+}
+  
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--mainBlack);
+}
+
+.footer-text {
+    border-top: 1px solid var(--mainBlack);
+    padding-top: 30px;
+}
+  
+ul.list-unstyled li {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.footer-list {
+    text-decoration: none;
+    color: var(--mainBlack);
+}
+
+.footer-list:hover {
+    color: var(--mainBlack);
+}
+
+.footer-contact {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.footerTitle, .headerTitle {
+    border-bottom: 3.5px solid var(--mainColorTwo);
+    margin-bottom: 20px;
+}
