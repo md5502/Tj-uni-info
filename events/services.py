@@ -1,7 +1,7 @@
 import jdatetime
 import markdown
 
-from .selectors import get_event_list, get_event_main_image, get_event_with_given_slug, get_extra_images
+from .selectors import get_event_main_image, get_extra_images
 
 
 def build_events_list_context(events):
@@ -10,7 +10,7 @@ def build_events_list_context(events):
         "events": [],
     }
 
-    
+
 
     for event in events:
         event_main_image = get_event_main_image(event)
@@ -34,7 +34,7 @@ def build_event_context(event):
 
     context = {}
 
-    
+
 
     # Populate the context with event details
     context["main_image"] = get_event_main_image(event)
