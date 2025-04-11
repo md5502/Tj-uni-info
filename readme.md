@@ -59,7 +59,8 @@ media/                # Media files (profiles, event images, logos)
 - **SQLite**: Default database (can be switched to PostgreSQL for production).
 - **Docker**: Optional containerization support via `Dockerfile` and `docker-compose.yml`.
 
-## Installation
+
+## 🛠 Installation & Running the Project
 
 1. **Clone the repository**:
    ```bash
@@ -68,28 +69,80 @@ media/                # Media files (profiles, event images, logos)
    ```
 
 2. **Create and activate a virtual environment**:
+
+   ### On Linux/macOS:
    ```bash
    python3 -m venv venv
    source venv/bin/activate
    ```
 
-3. **Install the required dependencies**:
+   ### On Windows (Command Prompt):
+   ```cmd
+   python -m venv venv
+   venv\Scripts\activate
+   ```
+
+   ### On Windows (PowerShell):
+   ```powershell
+   python -m venv venv
+   .\venv\Scripts\Activate.ps1
+   ```
+
+3. **Install dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Set up environment variables**:
+4. **Configure environment variables**:
 
-   - Copy `.env-sample` to `.env`:
+   - Copy the sample environment file:
      ```bash
-     cp .env-sample .env
+     cp .env-sample .env  # Use 'copy .env-sample .env' on Windows
      ```
 
-   - Open `.env` and configure the necessary values:
-     ```bash
+   - Edit the `.env` file and add your configuration:
+
+     ```env
      SECRET_KEY=your_secret_key
      DEBUG=True
+     DJANGO_SETTINGS_MODULE=config.settings.development
      ```
+
+     > ✅ **Important:** Make sure to add `DJANGO_SETTINGS_MODULE=config.settings.development` in your `.env` file. This ensures you don’t need to manually pass `--settings` when running management commands.
+
+5. **Auto-load `.env` variables (recommended)**:
+
+   This project uses [`python-dotenv`](https://pypi.org/project/python-dotenv/) or similar tools. Make sure your `manage.py` and `wsgi.py` contain this snippet at the top (already included in the repo):
+
+   ```python
+   from dotenv import load_dotenv
+   load_dotenv()
+   ```
+
+   This line loads all environment variables from `.env` automatically.
+
+6. **Apply database migrations**:
+   ```bash
+   python manage.py migrate
+   ```
+
+7. **Create a superuser**:
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+8. **Run the development server**:
+   Just use:
+   ```bash
+   python manage.py runserver
+   ```
+
+   No need to pass `--settings=...` anymore!
+
+9. **Access the application**:
+   - Frontend: [http://localhost:8000](http://localhost:8000)
+   - Admin Panel: [http://localhost:8000/admin](http://localhost:8000/admin)
+
 
    **Note**: The `.env-sample` file is provided to demonstrate what environment variables are required. You should not commit the `.env` file to version control as it contains sensitive information such as the `SECRET_KEY`.
 
