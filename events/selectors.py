@@ -6,9 +6,9 @@ from .models import Event, EventImage, EventUser
 
 def get_event_list(request):
 
-    search_query = request.GET.get("search")
+    search_query = request.GET.get("q", "")
     if search_query:
-        return Event.filter(Q(title__icontains=search_query))
+        return Event.objects.filter(Q(title__icontains=search_query))
 
     return Event.objects.all()
 
@@ -23,9 +23,9 @@ def get_event_images(event):
 
 def get_event_main_image(event):
 
-    image = get_event_images(event)
-    if image:
-        return image.first().image
+    images = get_event_images(event)
+    if images:
+        return images.first().image
     return None
 
 
@@ -38,7 +38,6 @@ def get_extra_images(event):
 
 
 def get_event_with_given_slug(slug):
-
     return get_object_or_404(Event, slug=slug)
 
 

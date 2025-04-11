@@ -1,0 +1,194 @@
+/* Responsive Design Styles */
+
+/* Base responsive styles */
+@media screen and (max-width: 1800px) {
+    .navbar_items {
+        width: 90%;
+        max-width: 1622px;
+    }
+
+    .landding_section,
+    .home_events,
+    .home_professors_and_staff,
+    .home_associations,
+    .home_shohada {
+        width: 90%;
+        max-width: 1760px;
+    }
+}
+
+/* Large screens (1200px and below) */
+@media screen and (max-width: 1200px) {
+    .navbar_logo {
+        width: 300px;
+    }
+
+    .navbar_logo_text {
+        font-size: 24px;
+    }
+
+    .landding_section h1 {
+        font-size: 48px;
+        line-height: 60px;
+    }
+
+    .landding_section img {
+        width: 800px;
+        height: 600px;
+    }
+}
+
+/* Medium screens (992px and below) */
+@media screen and (max-width: 992px) {
+    .navbar {
+        height: auto;
+        padding: 20px 0;
+    }
+
+    .navbar_items {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar_logo {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .navbar_links {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar_item {
+        display: inline-block;
+        margin: 0 15px;
+    }
+
+    .landding_section {
+        height: auto;
+        padding: 50px 0;
+    }
+
+    .landding_section img {
+        width: 100%;
+        height: auto;
+        position: static;
+        float: none;
+        margin-bottom: 30px;
+    }
+
+    .landding_section h1,
+    .landding_section hr,
+    .landding_section p {
+        position: static;
+        float: none;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .top_three_events {
+        width: 100%;
+        margin: 30px 0;
+    }
+
+    .home_main_event_image,
+    .home_main_event_content {
+        width: 100%;
+        margin: 20px 0;
+    }
+
+    .home_professor_row,
+    .home_staff_row {
+        flex-direction: column;
+    }
+
+    .home_professor_card,
+    .home_staff_card {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
+/* Small screens (768px and below) */
+@media screen and (max-width: 768px) {
+    .navbar_logo_text {
+        font-size: 20px;
+    }
+
+    .navbar_item {
+        margin: 0 10px;
+        font-size: 16px;
+    }
+
+    .landding_section h1 {
+        font-size: 36px;
+        line-height: 48px;
+    }
+
+    .landding_section p {
+        font-size: 16px;
+    }
+
+    .top_three_events_item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .top_three_events_item img {
+        margin: 0 0 10px 0;
+    }
+
+    .home_professor_card,
+    .home_staff_card {
+        flex-direction: column;
+    }
+
+    .home_professor_card_profile,
+    .home_staff_card_profile {
+        margin: 0 auto 20px;
+    }
+}
+
+/* Extra small screens (576px and below) */
+@media screen and (max-width: 576px) {
+    .navbar_logo {
+        width: 200px;
+    }
+
+    .navbar_logo_text {
+        font-size: 16px;
+    }
+
+    .navbar_item {
+        margin: 0 5px;
+        font-size: 14px;
+    }
+
+    .landding_section h1 {
+        font-size: 28px;
+        line-height: 36px;
+    }
+
+    .home_events h1,
+    .home_professors_and_staff pre,
+    .home_associations h1,
+    .home_shohada h1 {
+        font-size: 24px;
+    }
+
+    .footer {
+        padding: 20px 0;
+    }
+
+    .fotter_main_content {
+        flex-direction: column;
+    }
+
+    .about_us,
+    .fotter_nav {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+} 

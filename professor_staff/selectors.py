@@ -5,7 +5,7 @@ from .models import Professor, Staff
 
 
 def get_professor_list(request) -> QuerySet:
-    search_query = request.GET.get("search")
+    search_query = request.GET.get("q", "")
     if search_query:
         return Professor.objects.filter(Q(name__icontains=search_query) | Q(fname__icontains=search_query))
     return Professor.objects.all()
@@ -16,7 +16,7 @@ def get_professor_via_slug(slug) -> QuerySet:
 
 
 def get_staff_list(request) -> QuerySet:
-    search_query = request.GET.get("search")
+    search_query = request.GET.get("q", "")
     if search_query:
         return Staff.objects.filter(Q(name__icontains=search_query) | Q(fname__icontains=search_query))
     return Staff.objects.all()

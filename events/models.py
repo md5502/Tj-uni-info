@@ -1,26 +1,48 @@
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django_jalali.db.models import jDateField, jDateTimeField
-from mdeditor.fields import MDTextField
 
 
 class Event(models.Model):
     title = models.CharField("عنوان", max_length=100)
-    description = MDTextField(verbose_name="توضیحات")
-    slug = models.SlugField("شناسه", unique=True, allow_unicode=True, null=True, blank=True)
-    schedule_date = jDateTimeField(verbose_name="تاریخ برگذاری")
-    register_deadline = jDateField(verbose_name="تاریخ مهلت ثبت‌نام")
-    location = models.CharField("مکان برگذاری", max_length=200, default="سالن همایش قاسم سلیمانی")
+    description = models.TextField(verbose_name="توضیحات")
 
+    content_type = models.ForeignKey(
+        ContentType,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="نوع برگزارکننده",
+    )
+
+    object_id = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        verbose_name="شناسه برگزارکننده",
+    )
+    organizer = GenericForeignKey("content_type", "object_id")
+
+    slug = models.SlugField("شناسه", unique=True, allow_unicode=True, null=True, blank=True)
+    schedule_date = jDateTimeField(verbose_name="تاریخ برگزاری")
+    register_deadline = jDateField(verbose_name="تاریخ مهلت ثبت‌نام")
+    location = models.CharField("مکان برگزاری", max_length=200, default="سالن همایش قاسم سلیمانی")
+    capacity = models.PositiveIntegerField("ظرفیت رخداد", default=0, blank=True)
     created_at = jDateTimeField(verbose_name="ساخته شده در", auto_now_add=True)
     updated_at = jDateTimeField(verbose_name="ویرایش شده در", auto_now=True)
 
-    capacity = models.PositiveIntegerField("ظرفیت رخداد", null=True, blank=True)
     class Meta:
         verbose_name = "رخداد"
-        verbose_name_plural = "رخداد ها"
+        verbose_name_plural = "رخدادها"
 
     def __str__(self) -> str:
         return self.title
+
+    # def save(self, *args, **kwargs):
+    #     if not self.slug:
+    #         self.slug = slugify(self.title, allow_unicode=True) + '-' +  str(self.pk)
+    #     super().save(*args, **kwargs)
+
 
 
 class EventImage(models.Model):

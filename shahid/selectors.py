@@ -5,7 +5,7 @@ from .models import Shahid
 
 
 def get_shahid_list(request):
-    search_query = request.GET.get("search")
+    search_query = request.GET.get("q", "")
     if search_query:
         return Shahid.filter(Q(first_name__icontains=search_query))
     return Shahid.objects.all()

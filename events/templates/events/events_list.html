@@ -4,65 +4,106 @@
 {% block title %}
     رخدادها
 {% endblock title %}
+
+{% block nav_event %} navbar_link_active {% endblock nav_event %}
     
 {% block content %}
-    <!-- Events List -->
-    <div class="container my-5">
-        <!-- Navigation -->
-        <div class="navbar navbar-light bg-light">
-            <h2 class="mx-right">رخ‌دادها</h2>
-            <a href="#" class="btn btn-outline-danger"><i class="bi bi-arrow-left"></i></a>
-        </div>
-    
-        <!-- Search Bar -->
-        <div class="container mt-5 my-5">
-            <div class="row justify-content-center">
-                <div class="col-lg-6 col-md-8">
-                    <form method="get" action="{% url 'events:events_list' %}" class="d-flex">
-                        <input class="form-control me-2 search-bar" type="search" name="search" placeholder="جست و جو" value="{{ request.GET.search }}" aria-label="Search">
-                        <button class="btn btn-outline-danger" type="submit">
-                            <i class="bi bi-search"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <!-- Events Rows -->
-        <div class="row">
-            <!-- First Column: Events with odd index -->
-            <div class="col-md-6">
-                <ul class="list-unstyled">
-                    {% for event in events %}
-                    {% if forloop.counter0|divisibleby:2 %}
-                    <a href="{% url 'events:event_detail' event.slug %}" class="unstyled-link">
-                        <li class="event-item d-flex justify-content-between mb-3">
-                            <img class="event-thumbnail" src="{{ event.image.url }}" alt="{{ event.title }}" class="img-fluid">
-                            <h4>{{ event.title }}</h4>
-                            <span>{{ event.date }}</span>
-                        </li>
-                    </a>
-                    {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
+   
+    <!--======================================== search_box ========================================-->
 
-            <!-- Second Column: Events with even index -->
-            <div class="col-md-6">
-                <ul class="list-unstyled">
-                    {% for event in events %}
-                    {% if not forloop.counter0|divisibleby:2 %}
-                    <a href="{% url 'events:event_detail' event.slug %}" class="unstyled-link">
-                        <li class="event-item d-flex justify-content-between mb-3">
-                            <img class="event-thumbnail" src="{{ event.image.url }}" alt="{{ event.title }}" class="img-fluid">
-                            <h4>{{ event.title }}</h4>
-                            <span>{{ event.date }}</span>
-                        </li>
-                    </a>
-                    {% endif %}
-                    {% endfor %}
-                </ul>
+    <div class="search_nav">
+        <span class="search_title">رخدادها</span>
+        <div class="search-container">
+            <form method="GET" action="{% url 'events:events_list' %}">
+                <input type="text" name="q" placeholder="جست و جو" value="{{ query }}">
+                <button  type="submit" class="search-icon"><i class="fas fa-search"></i></button>
+            </form>
+        </div>
+    </div>
+    
+
+    <!--======================================== END-search_box ========================================-->
+    <div class="event_list">
+        {% for event in events %}
+            {% if forloop.first or forloop.counter0|divisibleby:2 %}
+            <div class="event_list_row">
+            {% endif %}
+            
+                <div class="event_list_item">
+                    <div class="event_list_item_image">
+                        <img src="{{ event.image.url }}" alt="عکس رخداد">
+                    </div>
+                    <h2><a href="{% url 'events:event_detail' event.slug %}">{{ event.title }}</a></h2>
+                    <span>{{ event.date|date:"Y-m-d"}}</span>
+                </div> 
+            
+            {% if forloop.last or forloop.counter|divisibleby:2 %}
+            </div> 
+            {% endif %}
+        {% endfor %}
+    </div>
+    
+
+{% endblock content %}
+
+
+
+
+ <!-- Events List -->
+ <div class="container my-5">
+    <!-- Navigation -->
+    <div class="navbar navbar-light bg-light">
+        <h2 class="mx-right">رخ‌دادها</h2>
+        <a href="#" class="btn btn-outline-danger"><i class="bi bi-arrow-left"></i></a>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="container mt-5 my-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <form method="get" action="{% url 'events:events_list' %}" class="d-flex">
+                    <input class="form-control me-2 search-bar" type="search" name="search" placeholder="جست و جو" value="{{ request.GET.search }}" aria-label="Search">
+                    <button class="btn btn-outline-danger" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
             </div>
         </div>
     </div>
-{% endblock content %}
+    <!-- Events Rows -->
+    <div class="row">
+        <!-- First Column: Events with odd index -->
+        <div class="col-md-6">
+            <ul class="list-unstyled">
+                {% for event in events %}
+                {% if forloop.counter0|divisibleby:2 %}
+                <a href="{% url 'events:event_detail' event.slug %}" class="unstyled-link">
+                    <li class="event-item d-flex justify-content-between mb-3">
+                        <img class="event-thumbnail" src="{{ event.image.url }}" alt="{{ event.title }}" class="img-fluid">
+                        <h4>{{ event.title }}</h4>
+                        <span>{{ event.date }}</span>
+                    </li>
+                </a>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
 
+        <!-- Second Column: Events with even index -->
+        <div class="col-md-6">
+            <ul class="list-unstyled">
+                {% for event in events %}
+                {% if not forloop.counter0|divisibleby:2 %}
+                <a href="{% url 'events:event_detail' event.slug %}" class="unstyled-link">
+                    <li class="event-item d-flex justify-content-between mb-3">
+                        <img class="event-thumbnail" src="{{ event.image.url }}" alt="{{ event.title }}" class="img-fluid">
+                        <h4>{{ event.title }}</h4>
+                        <span>{{ event.date }}</span>
+                    </li>
+                </a>
+                {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

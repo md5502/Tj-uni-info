@@ -25,7 +25,8 @@ class UserAdmin(admin.ModelAdmin):
 # Register Association model in admin
 @admin.register(Association)
 class AssociationAdmin(admin.ModelAdmin):
-    list_display = ("name", "association_type")
+    exclude = ("slug", )
+    list_display = ("id","name", "association_type")
     search_fields = ("name", "association_type")
     list_filter = ("association_type",)
     ordering = ("-created_at",)

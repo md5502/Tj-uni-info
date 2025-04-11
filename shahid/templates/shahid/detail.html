@@ -1,51 +1,67 @@
 {% extends 'base.html' %} 
 
+
+{% block title %}
+    {{ shahid.first_name }} {{ shahid.last_name }}
+{% endblock title %}
+
+
+{% block nav_shahid %} navbar_link_active {% endblock nav_shahid %}
 {% block content %}
-<div class="container">
-    <h1 class="text-center my-5">{{ shahid.first_name }} {{ shahid.last_name }}</h1> <!-- Updated field references -->
-    <div class="row">
-        <div class="col-md-6">
-            <!-- اسلایدشو تصاویر -->
-            <div id="shahidCarousel" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    {% for image in shahid.images.all %}
-                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                        <img class="d-block w-100" style="height: 300px; object-fit: cover;" src="{{ image.image.url }}" alt="تصویر شهید">
-                    </div>
-                    {% endfor %}
-                </div>
-                <a class="carousel-control-prev" href="#shahidCarousel" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">قبلی</span>
-                </a>
-                <a class="carousel-control-next" href="#shahidCarousel" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">بعدی</span>
-                </a>
-            </div>
-        </div>
-        <div class="col-md-6 text-right">
-            <h2>جزئیات شهادت</h2>
-            <p><strong>محل شهادت:</strong> {{ shahid.martyrdom_location }}</p>
-            <p><strong> نام: </strong> {{ shahid.first_name }}</p>
-            <p><strong> نام خانوادگی : </strong> {{ shahid.last_name }}</p>
-            <p><strong>تاریخ شهادت:</strong> {{ shahid.martyrdom_date|date:"d-m-Y" }}</p>
-            <p><strong>تاریخ تولد:</strong> {{ shahid.birth_date|date:"d-m-Y" }}</p> <!-- New field for birth date -->
-            <p><strong>مکان تولد:</strong> {{ shahid.birth_location }}</p> <!-- New field for birth location -->
-            <h2>زندگی نامه</h2>
-            <p>{{ shahid.life_story }}</p>
-            <h2>وصیت‌نامه</h2>
-            <p>{{ shahid.will }}</p> <!-- Display will -->
-            <h2>نقل قول‌های مهم</h2>
-            <p>{{ shahid.important_quotes }}</p> <!-- Display important quotes -->
-            
-            <!-- دکمه برای دانلود همه تصاویر -->
-            <a href="{% url 'shahid:download_shahid_images' shahid.slug %}" class="btn btn-success">دانلود همه تصاویر</a>
-            
-            <!-- دکمه برای دریافت QR Code -->
-            <a href="{% url 'shahid:generate_qr_code' shahid.slug %}" class="btn btn-info">دریافت QR Code</a>
-        </div>
+
+
+
+<div class="profssor_detal_hedder">
+    <div class="profssor_detal_hedder_imaage">
+        <img src="{{shahid.profile_image.url}}" alt=" {{ shahid.first_name }} {{ shahid.last_name }} ">
+    </div>
+    <div class="profssor_detal_hedder_title">
+        <h3>{{ shahid.first_name }} {{ shahid.last_name }}</h3>
+        <h3>{{ shahid.martyrdom_location }}</h3>
+        <!-- دکمه برای دانلود همه تصاویر -->
+
+        <a href="{% url 'shahid:download_shahid_images' shahid.slug %}" class="register_btn_qr">دانلود همه تصاویر</a>
+
+        <!-- دکمه برای دریافت QR Code -->
+        <a href="{% url 'shahid:generate_qr_code' shahid.slug %}" class="register_btn_qr">دریافت QR Code</a>
     </div>
 </div>
+
+<div class="shahid_detail_caption">
+    <h2>معرفی شهید</h2>
+    <ul>
+        <li><strong>نام کامل:</strong>{{ shahid.first_name }} {{ shahid.last_name }}</li>
+        <li><strong>تاریخ تولد:</strong> {{ shahid.birth_date|date:"Y/m/d" }}</li>
+        <li><strong>محل تولد:</strong> {{ shahid.birth_date|date:"Y/m/d" }} </li>
+        <li><strong>تاریخ شهادت:</strong> {{ shahid.martyrdom_date|date:"Y/m/d" }}</li>
+        <li><strong>محل شهادت:</strong>{{ shahid.martyrdom_location }}</li>
+    </ul>
+                
+
+    <h2>زندگی‌نامه</h2>
+    <p>{{ shahid.life_story }}</p>
+    <h2>وصیت‌نامه شهید:</h2>
+    <p> {{ shahid.will }} </p>
+    <h2>نقل‌قول‌ها</h2>
+    <p> {{ shahid.important_quotes }} </p>
+
+
+</div>
+
+<div class="event_detail_extra_image">
+{% for image in shahid.images.all %}
+    {% if forloop.first or forloop.counter0|divisibleby:2 %}
+    <div class="event_detail_extra_image_row">
+    {% endif %}
+        <div class="event_detail_extra_image_item">
+            <img src="{{ image.image.url }}" alt="عکس رخداد">
+        </div>
+    {% if forloop.counter|divisibleby:2 or forloop.last %}
+    </div>
+    {% endif %}
+{% endfor %}
+
+</div>
+
 
 {% endblock %}

@@ -4,19 +4,46 @@
 {% block title %}
     لیست کارمندان
 {% endblock title %}
+{% block nav_staff %} navbar_link_active {% endblock nav_staff %}
     
 
 {% block content %}
-    
+<div class="search_nav">
+    <span class="search_title">کارمندان</span>
+    <div class="search-container">
+        <form method="GET" action="{% url 'professors_staffs:staff_list' %}">
+            <input type="text" name="q" placeholder="جست و جو" value="{{ query }}">
+            <button  type="submit" class="search-icon"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+</div>
+
+<div class="professor_list">
+
+
     {% for staff in staffs %}
-        {{staff.name}}
-        {{staff.fname}}
-        {{staff.position}}
-        {{staff.tag}}
-        <img src="{{staff.profile.url}}" alt="{{staff.name}}">
-        <br/>
-        <a href="{% url "professors_staffs:staff_detail" staff.slug %}" >جزئیات<</a>
-    {% endfor %}
+    {% if forloop.first or forloop.counter0|divisibleby:3 %}
+        <div class="professor_row">
+    {% endif %}
+
+    <div class="home_staff_card">
+        <div class="home_staff_card_profile">
+            <img src="{{ staff.profile.url }}" alt="{{ staff.name }}">
+        </div>
+        <div class="home_staff_card_info"> 
+            <span class="home_staff_card_tag">{{ staff.tag }}</span>
+            <h2 class="home_staff_card_title">{{ staff.name }} {{ staff.fname }}</h2>
+            <p class="home_staff_card_position">{{ staff.position }}</p>
+            <a href="{% url 'professors_staffs:staff_detail' staff.slug %}" class="home_staff_card_btn">جزئیات</a>
+        </div>
+    </div>
+
+    {% if forloop.counter|divisibleby:3 or forloop.last %}
+        </div>
+    {% endif %}
+{% endfor %}
+
+</div>
+
         
 {% endblock content %}
-    

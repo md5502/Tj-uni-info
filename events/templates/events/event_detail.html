@@ -5,63 +5,53 @@
     {{ event.title }}
 {% endblock title %}
 
+{% block nav_event %} navbar_link_active {% endblock nav_event %}
+
 {% block content %}
-    <div class="event-detail-container container mt-5">
-        <!-- Navigation -->
-        <div class="event-detail-navbar navbar navbar-light bg-light mb-4">
-            <a href="{% url 'events:events_list' %}">
-                <i class="bi bi-arrow-left "></i>
-            </a>
+    
+<div class="event_detail">
+    <div class="event_detail_hedder">
+        <div class="event_detail_main_image">
+            <img src="{{ main_image.url }}" alt="عکس اصلی رخداد">
         </div>
-
-        <!-- Event Details -->
-        <div class="event-detail-details row mb-4">
-            <div class="col-md-8">
-                {% if main_image %}
-                    <img src="{{ main_image.url }}" alt="{{ event.title }}" class="event-detail-main-image img-fluid">
-                {% else %}
-                    <div class="event-detail-placeholder"></div>
-                {% endif %}
-            </div>
-            <div style="margin-top: auto;" class="col-md-4">
-                <h2 class="event-detail-title">{{ event_title }}</h2>
-                <p class="event-detail-date"><strong>تاریخ برگزاری:</strong> {{ event_date|date:"d-m-Y" }}</p> <!-- تاریخ برگزاری -->
-                <p class="event-detail-date"><strong>زمان برگزاری:</strong> {{ event_date|time:"H:i" }}</p> <!-- زمان برگزاری -->
-                <p class="event-detail-date"><strong>مهلت ثبت‌نام:</strong> {{ event_register_deadline|date:"d-m-Y" }}</p> <!-- مهلت ثبت‌نام -->
-                <p class="event-detail-location"><strong>مکان برگزاری:</strong> {{ location }}</p> <!-- مکان برگزاری -->
-                <p class="event-detail-capacity"><strong>ظرفیت:</strong> {{ capacity }} نفر</p> <!-- ظرفیت -->
-
-                {% if capacity > 0 %}
-                    <a class="btn btn-success" href="{% url 'events:event_registration' event_slug %}">
-                        ثبت‌نام
-                    </a>
-                {% else %}
-                    <p class="text-danger">
-                        ثبت‌نام امکان‌پذیر نیست (ظرفیت تکمیل شده)
-                    </p>
-                {% endif %}
-
-            </div>
+        <div class="event_detail_title">
+            <h3>{{  event_title}}</h3>
+            <span><i class="fas fa-calendar" aria-hidden="true"></i>تاریخ برگزاری : {{ event_date|date:"d-m-Y" }}</span>
+            <span><i class="fa fa-clock" aria-hidden="true"></i>زمان برگزاری : {{ event_date|time:"H:i" }}</span>
+            <span><i class="fa fa-map-marker" aria-hidden="true"></i>مکان برگزاری : {{ location }}</span>
+            <span><i class="fa fa-user" aria-hidden="true"></i>ظرفیت باقی مانده: {{ capacity }} نفر</span>
+            <span><i class="fas fa-hourglass-half"></i>مهلت ثبت نام : {{ event_register_deadline|date:"d-m-Y" }}</span>
             
+            {% if is_registration_open %}
+                <a href="{% url 'events:event_registration' event_slug %}" class="register_btn">ثبت نام کنید</a>
+            {% endif %}
+            <a href="{% url 'association:generate_qr_code' event_slug %}" class="register_btn_qr">دریافت QR Code</a>
+        
+
             
-        </div>
-
-        <!-- Event Description -->
-        <div class="event-detail-description-container row">
-            <div class="col-12">
-                <p class="event-detail-description">
-                    {{ event_description_html|safe }}
-                </p>
-            </div>
-        </div>
-
-        <!-- Additional Images -->
-        <div class="event-detail-additional-images row mt-5">
-            {% for image in extra_images %}
-            <div class="col-md-3 col-6 mb-4">
-                <img src="{{ image.url }}" alt="Additional Image" class="event-detail-extra-image img-fluid">
-            </div>
-            {% endfor %}
         </div>
     </div>
+    <div class="event_detail_caption">
+        {{ event_description_html|safe }}
+    </div>
+
+
+    <div class="event_detail_extra_image">
+        {% for image in extra_images %}
+            {% if forloop.first or forloop.counter0|divisibleby:2 %}
+                <div class="event_detail_extra_image_row">
+            {% endif %}
+            
+            <div class="event_detail_extra_image_item">
+                <img src="{{ image.url }}" alt="عکس رخداد">
+            </div>
+        
+            {% if forloop.counter0|add:1|divisibleby:2 or forloop.last %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    
+
+    </div>
+</div>
 {% endblock content %}

@@ -1,4 +1,7 @@
+import uuid
+
 from django.contrib import admin
+from django.utils.text import slugify
 
 from .models import (
     AcademicActivity,
@@ -15,16 +18,43 @@ from .models import (
 
 @admin.register(Professor)
 class ProfessorAdmin(admin.ModelAdmin):
-    list_display = ("name", "fname", "position", "location", "phone_number")
+
+    exclude = ("slug",)
+    list_display = ("id", "name", "fname", "position", "location", "phone_number")
     search_fields = ("name", "fname", "position")
     list_filter = ("position", "location")
+    ordering = ("-created_at",)
+
+    def save_model(self, request, obj, form, change):
+        # Generate slug only if it's not provided
+        if not obj.slug:
+            obj.slug = slugify(
+                f"{str(uuid.uuid4()).split('-')[0]} {obj.name} {obj.fname}",
+                allow_unicode=True,
+            )
+        super().save_model(request, obj, form, change)
+
+
+
 
 
 @admin.register(Staff)
 class StaffAdmin(admin.ModelAdmin):
-    list_display = ("name", "fname", "position", "location", "phone_number")
+
+    exclude = ("slug",)
+    list_display = ("id", "name", "fname", "position", "location", "phone_number")
     search_fields = ("name", "fname", "position")
     list_filter = ("position", "location")
+    ordering = ("-created_at",)
+
+    def save_model(self, request, obj, form, change):
+        # Generate slug only if it's not provided
+        if not obj.slug:
+            obj.slug = slugify(
+                f"{str(uuid.uuid4()).split('-')[0]} {obj.name} {obj.fname}",
+                allow_unicode=True,
+            )
+        super().save_model(request, obj, form, change)
 
 
 

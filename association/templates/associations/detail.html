@@ -4,38 +4,98 @@
     {{ association.name }}
 {% endblock title %}
 
+{% block nav_association %} navbar_link_active {% endblock nav_association %}
 {% block content %}
-<div class="container mt-4">
-    <div class="card">
-        <div class="card-header bg-primary text-white text-center">
-            <h3>{{ association.name }}</h3>
-        </div>
-        <div class="text-center mt-4">
-            <img
-                src="{{ association.logo.url }}"
-                class="img-fluid rounded-top"
-                alt="{{ association.name }}"
-                style="max-width: 150px;"
-            />
-        </div>
-        <div class="card-body">
-            <p><strong>نوع انجمن:</strong> {{ association.get_association_type_display }}</p>
-            <p><strong>توضیحات:</strong> {{ association.description }}</p>
-            <p><strong>اهداف:</strong> {{ association.goals|safe }}</p>
-            <p><strong>لینک شبکه‌های اجتماعی:</strong> <a href="{{ association.social_media_link }}" target="_blank">{{ association.social_media_link }}</a></p>
-            <p><strong>لینک سایت:</strong> <a href="{{ association.site_link }}" target="_blank">{{ association.site_link }}</a></p>
-            <p><strong>لینک کانال:</strong> <a href="{{ association.channel_link }}" target="_blank">{{ association.channel_link }}</a></p>
-
-            <!-- Displaying members -->
-            <h4 class="mt-4">اعضای انجمن:</h4>
-            <ul>
-                {% for member in association.associationuser_set.all %}
-                    <li>{{ member.user_id.first_name }} {{ member.user_id.last_name }} - {{ member.position }}</li>
-                {% empty %}
-                    <p>عضوی برای نمایش وجود ندارد.</p>
-                {% endfor %}
-            </ul>
-        </div>
+<div class="profssor_detal_hedder">
+    <div class="profssor_detal_hedder_imaage">
+        <img src="{{ association.logo.url }}" alt="عکس استاد">
+    </div>
+    <div class="profssor_detal_hedder_title">
+        <small style="font-size: 16px;">نام انجمن:</small><h3>{{ association.name }}</h3>
+        <small style="font-size: 16px;">نوع انجمن: </small><h3>{{ association.get_association_type_display }}</h3>
+        <a href="{% url 'association:generate_qr_code' association.slug %}" class="register_btn_qr">دریافت QR Code</a>
     </div>
 </div>
+
+
+<div class="association_members">
+    <div class="association_members_title">
+        <h1>اعضای انجمن</h1>
+    </div>
+    {% for member in association.associationuser_set.all %}
+        {% if forloop.counter0|divisibleby:2 %}
+            <div class="association_members_row">
+        {% endif %}
+            <div class="association_member_card">
+                <div class="association_member_card_profile">
+                    <img src="{{ member.user_id.profile_image.url }}" alt="">
+                </div>
+                <div class="association_member_card_caption">
+                    <h2>{{ member.user_id.first_name }} {{ member.user_id.last_name }}</h2>
+                    <p>{{ member.position }}</p>
+                    <p>{{ member.user_id.email }}</p>
+                    <p>{{ member.user_id.description }}</p>
+                </div>
+            </div>
+        {% if forloop.counter|divisibleby:2 or forloop.last %}
+            </div>   
+        {% endif %} 
+    {% endfor %}
+</div>
+
+
+<div class="association_caption">
+    <div class="association_caption_info">
+        <h2>معرفی انجمن</h2>
+        <p>{{ association.description }}</p>
+        <h2>اهداف اصلی</h2>
+        {{ association.goals| safe }}
+        <h2>لینک‌های مفید</h2>
+        <ul>
+            {% if association.social_media_link %}
+                <li><a href="{{ association.social_media_link }}">صفحه اجتماعی</a></li>
+            {% endif %}
+            {% if association.site_link %}
+                <li><a href="{{ association.site_link }}">سایت رسمی</a></li>
+            {% endif %}
+            {% if association.channel_link %}
+                <li><a href="{{ association.channel_link }}">کانال تلگرامی</a></li>
+            {% endif %}
+
+        </ul>
+    </div>
+    <div class="association_caption_events">
+        <h2>رویدادهای آینده:</h2>
+        {% if upcoming_events %}
+            <ul>
+                {% for event in upcoming_events %}
+                    <li>
+                        <strong>{{ event.title }}</strong><br>
+                        <small>تاریخ: {{ event.schedule_date|date:"Y/m/d" }}</small><br>
+                        <small>مکان: {{ event.location }}</small>
+                        <small><a href="{% url 'events:event_registration' event.slug %}">ثبت نام کنید</a></small>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>هیچ رویداد آینده‌ای وجود ندارد.</p>
+        {% endif %}
+    
+        <h2>فعالیت‌های گذشته:</h2>
+        {% if past_events %}
+            <ol>
+                {% for event in past_events %}
+                    <li>
+                        <strong>{{ event.title }}</strong><br>
+                        <small>تاریخ: {{ event.schedule_date|date:"Y-m-d" }}</small>
+                    </li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <p>هیچ فعالیت گذشته‌ای ثبت نشده است.</p>
+        {% endif %}
+    </div>
+    
+</div>
 {% endblock content %}
+

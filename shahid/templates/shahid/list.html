@@ -1,45 +1,52 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
+{% block title %}
+   شهدا 
+{% endblock title %}
+
+
+{% block nav_shahid %} navbar_link_active {% endblock nav_shahid %}
+
 {% block content %}
 
-<!-- Events List -->
-<div class="container my-5">
-    <!-- Navigation -->
-    <div class="navbar navbar-light bg-light">
-        <h2 class="mx-right">شهداء</h2>
-        <a href="#" class="btn btn-outline-danger"><i class="bi bi-arrow-left"></i></a>
-    </div>
 
-    <!-- Search Bar -->
-    <div class="container mt-5 my-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-8">
-                <form method="get" action="{% url 'shahid:shahid_list' %}" class="d-flex">
-                    <input class="form-control me-2 search-bar" type="search" name="search" placeholder="جست و جو" value="{{ request.GET.search }}" aria-label="Search">
-                    <button class="btn btn-outline-danger" type="submit">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        {% for shahid in shahid_list %}
-            <div class="col-md-4">
-                <div class="card">
-                    <span>{{ shahid.martyrdom_location }}</span>
-                    <img class="card-img-top" src="{{ shahid.profile_image.url }}" alt="تصویر شهید">
-                    <div class="card-body text-right"> 
-                        <h5 class="card-title">{{ shahid.full_name }}</h5>
-                        <p class="card-text">{{ shahid.life_story }}</p>
-                        <a href="{% url 'shahid:shahid_detail' shahid.slug %}" class="btn btn-primary">مشاهده جزئیات</a>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
+<div class="search_nav">
+    <span class="search_title">شهدا</span>
+    <div class="search-container">
+        <form method="GET" action="{% url 'shahid:shahid_list' %}">
+            <input type="text" name="q" placeholder="جست و جو" value="{{ query }}">
+            <button  type="submit" class="search-icon"><i class="fas fa-search"></i></button>
+        </form>
     </div>
 </div>
+
+<div class="shahid_list">
+    {% for shahid in shahid_list %}
+        {% if forloop.first or forloop.counter0|divisibleby:4 %}
+        <div class="shahid_row">
+        {% endif %}
+
+            <div class="shahid_card">
+                <div class="shahid_card_hedder">
+                    <span>{{ shahid.martyrdom_location }}</span>
+                </div>
+                <div class="shahid_card_profile">
+                    <img src="{{ shahid.profile_image.url }}" alt="{{ shahid.full_name }}">
+                </div>
+                <div class="shahid_card_caption">
+                    <h3>{{ shahid.full_name }}</h3>
+                    <p> {{ shahid.life_story|truncatewords:10 }} </p>
+                    <a href="{% url 'shahid:shahid_detail' shahid.slug %}">جزئیات</a>
+                </div>
+            </div>
+
+        {% if forloop.counter|divisibleby:4 or forloop.last %}
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+ 
 
 {% endblock %}

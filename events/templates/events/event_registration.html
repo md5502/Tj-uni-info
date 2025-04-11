@@ -1,31 +1,49 @@
 {% extends "base.html" %}
 
 {% block title %}
-ثبت‌نام
+ثبت‌ نام در {{ event_title }}
 {% endblock title %}
+
+{% block nav_event %} navbar_link_active {% endblock nav_event %}
+
 
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container my-5">
-    <div class="row">
+<div class="Event_registraion">
+    <div class="Event_registraion_row">
         <!-- Event Information -->
-        <div class="col-md-6">
-            <h2 class="my-5">اطلاعات رخداد</h2>
-            <div class="card-body">
-                <h3 class="card-title my-3">{{ event_title }}</h3>
-                <p class="card-text"><strong>تاریخ رخداد:</strong> {{ event_date}}</p>
-                <p class="card-text"><strong>محل برگزاری:</strong> {{event_location}}</p>
+        <div class="Event_registraion_Information">
+            <h2>اطلاعات رخداد</h2>
+            <div>
+                <p><strong>نام رخداد</strong> : {{ event.title }}</p>
+                <p> <strong>تاریخ رخداد:</strong> : {{ event.schedule_date|date:"Y/m/d"}}</p>
+                <p> <strong>محل برگزاری:</strong>  :{{event.location}}</p>
             </div>
         </div>
-
+        
+        
+        
+        
         <!-- Registration Form -->
-        <div class="col-md-6">
+        <div class="Event_registraion_form">
             <h2 class="my-5">ثبت‌نام در رخداد</h2>
             <form method="POST" class="post-form">
                 {% csrf_token %}
-                {{ form|crispy }}
-                <button type="submit" class="btn btn-success">ثبت‌نام</button>
+                {% for field in form %}
+                    <div class="form-group">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="alert alert-danger">
+                                {% for error in field.errors %}
+                                    <p style="color:red;">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <button type="submit" >ثبت‌ نام</button>
             </form>
         </div>
     </div>

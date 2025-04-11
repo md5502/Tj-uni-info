@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "mdeditor",
 
     "django_jalali",
+    "django.contrib.humanize",
 ]
 
 MIDDLEWARE = [

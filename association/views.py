@@ -11,6 +11,6 @@ def association_list(request):
 
 
 def association_detail(request, slug):
-    association = get_association_via_slug(slug)
-    context = {"association": association}
+    association, upcoming_events, past_events = get_association_via_slug(slug)
+    context = {"association": association, "upcoming_events": upcoming_events, "past_events": past_events}
     return render(request, "associations/detail.html", context)

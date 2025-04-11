@@ -5,75 +5,75 @@
     {{professor.name}} {{professor.fname}}
 {% endblock title %}
 
+{% block nav_professor %} navbar_link_active {% endblock nav_professor %}
+
 
 {% block content %}
-    {{professor.name}}
-    <br/>
-    {{professor.fname}}
-    <br/>
+   
+<div class="profssor_detal_hedder">
+    <div class="profssor_detal_hedder_imaage">
+        <img src="{{professor.profile_image.url}}" alt="عکس استاد">
+    </div>
+    <div class="profssor_detal_hedder_title">
+        <small style="font-size: 16px;">نام و نام خانوادگی: </small><h3>{{professor.name}} {{professor.fname}}</h3>
+        <small style="font-size: 16px;">محل کار: </small><h3><h3>{{professor.location}}</h3>
+        <small style="font-size: 16px;"> سمت شغلی: </small><h3>{{professor.tag}}</h3>
+        <small style="font-size: 16px;">شماره تماس: </small><h3>{{professor.phone_number}}</h3>
+        <a href="{% url 'professors_staffs:generate_qr_code' professor.slug %}" class="register_btn_qr">دریافت QR Code</a>
+    </div>
+</div>
+<div class="profssor_detal_caption">
+    <div>
+        <div class="profssor_detal_caption_item">
+            <h2>حوزه‌های تحقیقاتی</h2>
+            {% for research_area in professor.research_areas.all %}
+                <li>{{research_area.title}}</li>
+            {% endfor %}
+        </div>
+        <div class="profssor_detal_caption_item">
+            <h2>سوابق تحصیلی</h2>
+            {% for educational_record in professor.educational_records.all %}
+             <li>{{educational_record.title}} {{educational_record.date}} </li>
+            {% endfor %}
+        </div>
+        <div class="profssor_detal_caption_item">
+            <h2>دروس تدریسی</h2>
+            {% for teaching_course in professor.teaching_courses.all %}
+                <li>{{teaching_course.title}} | {{teaching_course.semester}} </li>
+            {% endfor %}
+        </div>
+    </div>
+    <div>
+        <div class="profssor_detal_caption_item">
+            <h2>سوابق کاری</h2>
+            {% for work_experience in professor.work_experiences.all %}
+                <li>{{work_experience.title}} {{work_experience.form_date}} {{work_experience.to_date}} </li>
+            {% endfor %}
+        </div>
+        <div class="profssor_detal_caption_item">
+            <h2>آثار و مقالات</h2>
+            {% for paper in professor.papers.all %}
+                <p><a href="{{paper.link}}">{{paper.title}}</a></p>
+                <li> تاریخ انتشار: {{paper.date}}</li>
+            {% endfor %}
+        </div>
+        <div class="profssor_detal_caption_item">
+            <h2>فعالیت‌های دانشگاهی و اجرایی</h2>
+            {% for academic_activitie in professor.academic_activities.all %}
+                <li>{{academic_activitie.title}}</li>
+            {% endfor %}
+        </div>
+        <div class="profssor_detal_caption_item">
+            <h2>لینک‌های خارجی</h2>
+            {% for external_link in professor.external_links.all %}
+                <br/>
+                <li><a href="{{external_link.related_link}}"> <i class="fa fa-external-link" aria-hidden="true"> </i>{{external_link.title}}</i></a></li>
+            {% endfor %}
+        </div>
+    </div>
+   
 
-    {{professor.location}}
-    <br/>
-
-    {{professor.tag}}
-    <br/>
-
-    {{professor.phone_number}}
-    <br/>
-
-    {{professor.profile_image}}
-    <br/>
-    
-    work_experiences
-    {% for work_experience in professor.work_experiences.all %}
-        {{work_experience.title}}<br/>
-        {{work_experience.form_date}}<br/>
-        {{work_experience.to_date}}<br/>
-    {% endfor %}
-    <br/>
-    
-    papers
-    {% for paper in professor.papers.all %}
-        {{paper.title}}<br/>
-        {{paper.date}}<br/>
-        {{paper.link}}<br/>
-    {% endfor %}
-    <br/>
-
-    educational_records
-    {% for educational_record in professor.educational_records.all %}
-        {{paper.title}}<br/>
-        {{paper.date}}<br/>
-    {% endfor %}
-    <br/>
-    research_areas
-    {% for research_area in professor.research_areas.all %}
-        {{paper.title}}<br/>
-    {% endfor %}
-    <br/>
-
-    teaching_courses
-    {% for teaching_course in professor.teaching_courses.all %}
-        {{teaching_course.title}}<br/>
-        {{teaching_course.semester}}<br/>
-    {% endfor %}
-    <br/>
-
-    academic_activities
-    {% for academic_activitie in professor.academic_activities.all %}
-        {{academic_activitie.title}}<br/>
-    {% endfor %}
-    <br/>
-
-    external_links
-    {% for external_link in professor.external_links.all %}
-        {{external_link.title}}<br/>
-    {% endfor %}
-    <br/>
-    
-    
-
-    
-
+</div>
 {% endblock content %}
-    
+
+

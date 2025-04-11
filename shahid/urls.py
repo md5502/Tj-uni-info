@@ -1,6 +1,7 @@
 from django.urls import path
 
-from .views import download_shahid_images, generate_qr_code, shahid_detail, shahid_list
+from config.views import generate_qr_code
+from .views import download_shahid_images, shahid_detail, shahid_list
 
 app_name = "shahid"
 
